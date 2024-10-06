@@ -115,7 +115,7 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
 
 //Delete Product - api/v1/product/:id
 exports.deleteProduct = catchAsyncError(async (req, res, next) =>{
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findByIdAndDelete(req.params.id);
 
     if(!product) {
         return res.status(404).json({
@@ -191,7 +191,7 @@ exports.getReviews = catchAsyncError(async (req, res, next) =>{
 
 //Delete Review - api/v1/review
 exports.deleteReview = catchAsyncError(async (req, res, next) =>{
-    const product = await Product.findById(req.query.productId);
+    const product = await Product.findByIdAndDelete(req.query.productId);
     
     //filtering the reviews which does match the deleting review id
     const reviews = product.reviews.filter(review => {

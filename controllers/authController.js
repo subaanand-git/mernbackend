@@ -236,11 +236,11 @@ exports.updateUser = catchAsyncError(async (req, res, next) => {
 
 //Admin: Delete User - api/v1/admin/user/:id
 exports.deleteUser = catchAsyncError(async (req, res, next) => {
-    const user = await User.findById(req.params.id);
+    const user = await User.findByIdAndDelete(req.params.id);
     if(!user) {
         return next(new ErrorHandler(`User not found with this id ${req.params.id}`))
     }
-    await user.delete();
+    await user.remove();
     res.status(200).json({
         success: true,
     })
